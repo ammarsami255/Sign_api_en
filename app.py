@@ -5,8 +5,10 @@ import mediapipe as mp
 import numpy as np
 from io import BytesIO
 from PIL import Image
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Load the model
 model_dict = pickle.load(open('model.p', 'rb'))
@@ -72,6 +74,15 @@ def predict():
         return jsonify({'predicted_gesture': predicted_character})
     
     return jsonify({'error': 'No hand detected'})
+
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        'message': 'Sign Language Recognition API',
+        'endpoints': {
+            '/predict': 'POST - Send an image file to get the predicted sign'
+        }
+    })
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
