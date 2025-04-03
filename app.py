@@ -9,7 +9,7 @@ from PIL import Image
 app = Flask(__name__)
 
 # Load the model
-model_dict = pickle.load(open('./model.p', 'rb'))
+model_dict = pickle.load(open('model.p', 'rb'))
 model = model_dict['model']
 
 # MediaPipe Hand Detection Setup
